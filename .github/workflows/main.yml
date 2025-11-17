@@ -30,7 +30,6 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.5
-          working-directory: ./terraform
 
       - name: Terraform fmt
         id: fmt
@@ -43,7 +42,7 @@ jobs:
         working-directory: ./terraform
         env:
           AWS_BUCKET_NAME: ${{ secrets.AWS_TFSTATE_BUCKET_NAME }}
-          AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_TFSTATE_KEY_NAM }}
+          AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_TFSTATE_KEY_NAME }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: > 
           terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" 
@@ -67,7 +66,6 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          working-directory: ./terraform
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
