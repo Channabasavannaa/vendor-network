@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: ${{ secrets.AWS_GITHUB_ONDC }}
+          role-to-assume: ${{ secrets.AWS_GITHUB_ONDC_ARN }}
           role-session-name: ${{ secrets.AWS_ONDC_ROLE_SESSION }}
           aws-region: ${{ secrets.AWS_REGION }}
 
